@@ -1,2 +1,4 @@
-package com.example.lototron.controller;public class LotController {
+package com.example.lototron.controller;
+
+public class LotController {
 }

@@ -1,2 +1,4 @@
-package com.example.lototron.repository;public interface BidRepository {
+package com.example.lototron.repository;
+
+public interface BidRepository {
 }

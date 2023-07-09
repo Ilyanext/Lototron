@@ -1,2 +1,4 @@
-package com.example.lototron.repository;public interface LotRepository {
+package com.example.lototron.repository;
+
+public interface LotRepository {
 }
