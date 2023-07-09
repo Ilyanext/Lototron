@@ -13,6 +13,7 @@ public class Lot {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "lot_id")
     private int id;
     private String title;
     private String description;
