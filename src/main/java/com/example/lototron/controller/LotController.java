@@ -1,5 +1,6 @@
 package com.example.lototron.controller;
 
+import com.example.lototron.pojo.Lot;
 import com.example.lototron.service.LotService;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,9 +30,13 @@ public class LotController {
     }
 
     @PostMapping("/")
-    public void createdLot(){
-        lotService.createdLot();
+    public void createdLot(@RequestParam ("title") String title ,@RequestParam ("description") String description,@RequestParam ("bidPrice") int bidPrice){
+        lotService.createLotSQL(title, description, bidPrice);
     }
+//@PostMapping("/")
+//public void createdLot(@RequestBody Lot lot) {
+//    lotService.addLot(lot);
+//}
     @PostMapping("/{id}/start")
     public void startedLot(@PathVariable String id){
         System.out.println("ok.startedLot");

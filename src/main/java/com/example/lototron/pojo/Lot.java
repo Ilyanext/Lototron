@@ -22,19 +22,17 @@ public class Lot {
     private int startPrice;
     @Column(name = "bid_price")
     private int bidPrice;
-    @Column(name = "current_price")
-    private int currentPrice;
-    private Status status;
+
+    private String status;
     @OneToMany(mappedBy = "lot",fetch = FetchType.LAZY)
     private List<Bid> bidList;
 
-    public Lot(int id, String title, String description, int startPrice, int bidPrice, int currentPrice, Status status, List<Bid> bidList) {
+    public Lot(int id, String title, String description, int startPrice, int bidPrice, int currentPrice, String status, List<Bid> bidList) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.startPrice = startPrice;
         this.bidPrice = bidPrice;
-        this.currentPrice = currentPrice;
         this.status = status;
         this.bidList = bidList;
     }
@@ -83,19 +81,13 @@ public class Lot {
         this.bidPrice = bidPrice;
     }
 
-    public int getCurrentPrice() {
-        return currentPrice;
-    }
 
-    public void setCurrentPrice(int currentPrice) {
-        this.currentPrice = currentPrice;
-    }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -115,7 +107,6 @@ public class Lot {
                 ", description='" + description + '\'' +
                 ", startPrice=" + startPrice +
                 ", bidPrice=" + bidPrice +
-                ", currentPrice=" + currentPrice +
                 ", status=" + status +
                 ", bidList=" + bidList +
                 '}';

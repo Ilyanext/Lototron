@@ -3,15 +3,29 @@ package com.example.lototron.projections;
 import java.time.LocalDateTime;
 
 public class Bidder {
+    private int id;
     private String bidderName;
     private LocalDateTime localDateTime;
-
-    public Bidder(String bidderName, LocalDateTime localDateTime) {
+    private Bidder(String bidderName, LocalDateTime localDateTime) {
         this.bidderName = bidderName;
         this.localDateTime = localDateTime;
     }
 
     public Bidder() {
+    }
+
+    public Bidder(int id, String bidderName, LocalDateTime localDateTime) {
+        this.id = id;
+        this.bidderName = bidderName;
+        this.localDateTime = localDateTime;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getBidderName() {
