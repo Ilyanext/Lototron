@@ -1,51 +1,20 @@
-package com.example.lototron.dto;
+package com.example.lototron.projections;
 
-import com.example.lototron.pojo.Lot;
-
-public class LotDTO {
+public class LotStarted {
     private int id;
     private String title;
     private String description;
-    private int startPrice;
+    private int startPrice ;
     private int bidPrice;
+    private String status = "STARTED";
 
-    private String status;
-    public LotDTO(String title, String description, int startPrice, String status, int bidPrice) {
-
+    public LotStarted(int id, String title, String description, int startPrice, int bidPrice, String status) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.startPrice = startPrice;
         this.bidPrice = bidPrice;
         this.status = status;
-    }
-
-    public LotDTO() {
-    }
-
-
-
-    public static  LotDTO fromLot (Lot lot){
-        LotDTO lotDTO = new LotDTO();
-        lotDTO.setId(lot.getId());
-        lotDTO.setTitle(lot.getTitle());
-        lotDTO.setDescription(lot.getDescription());
-        lotDTO.setStartPrice(lot.getStartPrice());
-        lotDTO.setBidPrice(lot.getBidPrice());
-        lotDTO.setStatus(lot.getStatus());
-        return lotDTO;
-    }
-
-   
-
-    public static Lot toLot(LotDTO lotDTO) {
-        Lot lot = new Lot();
-        lot.setId(lotDTO.getId());
-        lot.setTitle(lotDTO.getTitle());
-        lot.setDescription(lotDTO.getDescription());
-        lot.setStartPrice(lotDTO.getStartPrice());
-        lot.setBidPrice(lotDTO.getBidPrice());
-        lot.setStatus(lotDTO.getStatus());
-        return lot;
     }
 
     public int getId() {

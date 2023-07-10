@@ -1,11 +1,9 @@
 package com.example.lototron.pojo;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.SourceType;
 
-import java.time.Instant;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "lot")
@@ -42,7 +40,7 @@ public class Lot {
     }
 
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {
@@ -82,13 +80,13 @@ public class Lot {
     }
 
 
-
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public String setStatus(String status) {
         this.status = status;
+        return status;
     }
 
     public List<Bid> getBidList() {
@@ -97,6 +95,19 @@ public class Lot {
 
     public void setBidList(List<Bid> bidList) {
         this.bidList = bidList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lot lot = (Lot) o;
+        return id == lot.id && startPrice == lot.startPrice && bidPrice == lot.bidPrice && title.equals(lot.title) && description.equals(lot.description) && status.equals(lot.status) && bidList.equals(lot.bidList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, startPrice, bidPrice, status, bidList);
     }
 
     @Override

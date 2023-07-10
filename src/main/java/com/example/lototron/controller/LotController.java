@@ -1,6 +1,7 @@
 package com.example.lototron.controller;
 
 import com.example.lototron.pojo.Lot;
+import com.example.lototron.pojo.Status;
 import com.example.lototron.service.LotService;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,29 +31,31 @@ public class LotController {
     }
 
     @PostMapping("/")
-    public void createdLot(@RequestParam ("title") String title ,@RequestParam ("description") String description,@RequestParam ("bidPrice") int bidPrice){
-        lotService.createLotSQL(title, description, bidPrice);
+    public Lot createdLot(String title, String description, int startPrice, int bidPrice) {
+        System.out.println("Лот успешно создан");
+        return lotService.createLot(title, description, startPrice, String.valueOf(Status.CREATED), bidPrice);
     }
-//@PostMapping("/")
-//public void createdLot(@RequestBody Lot lot) {
-//    lotService.addLot(lot);
-//}
+
     @PostMapping("/{id}/start")
-    public void startedLot(@PathVariable String id){
-        System.out.println("ok.startedLot");
+    public void startedLot(@PathVariable int id) {
+          lotService.startedLot(id);
     }
+
     @PostMapping("/{id}/bid")
-    public void placeBidOnLot(@PathVariable String id){
+    public void placeBidOnLot(@PathVariable String id) {
         System.out.println("ok.placeBidOnLot");
     }
+
     @PostMapping("/{id}/stop")
-    public void stoppedLot(@PathVariable String id){
+    public void stoppedLot(@PathVariable String id) {
         System.out.println("ok.stoppedLot");
     }
+
     @GetMapping("/")
     public int getAllInfoLotByStatusAndNumberPage() {
         return 222;
     }
+
     @GetMapping("/export")
     public int getExportAllLotInFile() {
         return 333;
