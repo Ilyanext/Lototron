@@ -1,4 +1,4 @@
-package com.example.lototron.pojo;
+package com.example.lototron.model;
 
 public enum Status {
 STARTED, STOPPED, CREATED

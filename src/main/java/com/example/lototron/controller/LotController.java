@@ -1,9 +1,16 @@
 package com.example.lototron.controller;
 
-import com.example.lototron.pojo.Lot;
-import com.example.lototron.pojo.Status;
+import com.example.lototron.dto.FullLot;
+import com.example.lototron.dto.Lot;
+import com.example.lototron.model.BidModel;
+import com.example.lototron.model.LotModel;
+import com.example.lototron.model.Status;
 import com.example.lototron.service.LotService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static com.example.lototron.model.Status.CREATED;
 
 
 @RestController
@@ -15,47 +22,39 @@ public class LotController {
         this.lotService = lotService;
     }
 
-    @GetMapping("/{id}/first")
-    public int getInfoFirstBedder(@PathVariable String id) {
-        return 1;
-    }
-
-    @GetMapping("/{id}/frequent")
-    public void getNameByMaxCountBid(@PathVariable String id) {
-        System.out.println("getNameByMaxCountBid");
-    }
-
     @GetMapping("/{id}")
-    public int getAllInfoLot(@PathVariable String id) {
-        return 999;
+    public FullLot getAllInfoLot(@PathVariable int id) {
+        return lotService.getFullLot(id);
     }
 
     @PostMapping("/")
-    public Lot createdLot(String title, String description, int startPrice, int bidPrice) {
+    public LotModel createdLot(String title, String description, int startPrice, int bidPrice) {
         System.out.println("Лот успешно создан");
-        return lotService.createLot(title, description, startPrice, String.valueOf(Status.CREATED), bidPrice);
+        return lotService.createLot(title, description, startPrice, Status.CREATED, bidPrice);
     }
 
     @PostMapping("/{id}/start")
     public void startedLot(@PathVariable int id) {
-          lotService.startedLot(id);
+        lotService.startedLot(id);
     }
 
     @PostMapping("/{id}/bid")
-    public void placeBidOnLot(@PathVariable String id) {
-        System.out.println("ok.placeBidOnLot");
+    public void placeBidOnLot(@PathVariable int id, @RequestParam("bidder_name") String bidderName) {
+          lotService.createNewBidForLot(id, bidderName);
     }
 
     @PostMapping("/{id}/stop")
-    public void stoppedLot(@PathVariable String id) {
-        System.out.println("ok.stoppedLot");
+    public void stoppedLot(@PathVariable int id) {
+        lotService.stoppedLot(id);
     }
 
     @GetMapping("/")
-    public int getAllInfoLotByStatusAndNumberPage() {
-        return 222;
+    public List<Lot> getAllInfoLotByStatusAndNumberPage(@RequestParam("status") Status status,
+                                                        @RequestParam("page") int page) {
+        return lotService.getLotByStatusAndPage(status, page);
     }
 
+    //Нужно возвращать файл
     @GetMapping("/export")
     public int getExportAllLotInFile() {
         return 333;

@@ -1,16 +1,17 @@
 package com.example.lototron.dto;
 
-import com.example.lototron.pojo.Lot;
+import com.example.lototron.model.LotModel;
+import com.example.lototron.model.Status;
 
-public class LotDTO {
+public class Lot {
     private int id;
     private String title;
     private String description;
     private int startPrice;
     private int bidPrice;
 
-    private String status;
-    public LotDTO(String title, String description, int startPrice, String status, int bidPrice) {
+    private Status status;
+    public Lot(String title, String description, int startPrice, Status status, int bidPrice) {
 
         this.title = title;
         this.description = description;
@@ -19,33 +20,33 @@ public class LotDTO {
         this.status = status;
     }
 
-    public LotDTO() {
+    public Lot() {
     }
 
 
 
-    public static  LotDTO fromLot (Lot lot){
-        LotDTO lotDTO = new LotDTO();
-        lotDTO.setId(lot.getId());
-        lotDTO.setTitle(lot.getTitle());
-        lotDTO.setDescription(lot.getDescription());
-        lotDTO.setStartPrice(lot.getStartPrice());
-        lotDTO.setBidPrice(lot.getBidPrice());
-        lotDTO.setStatus(lot.getStatus());
-        return lotDTO;
+    public static Lot fromLot (LotModel lotModel){
+        Lot lot = new Lot();
+        lot.setId(lotModel.getId());
+        lot.setTitle(lotModel.getTitle());
+        lot.setDescription(lotModel.getDescription());
+        lot.setStartPrice(lotModel.getStartPrice());
+        lot.setBidPrice(lotModel.getBidPrice());
+        lot.setStatus(lotModel.getStatus());
+        return lot;
     }
 
    
 
-    public static Lot toLot(LotDTO lotDTO) {
-        Lot lot = new Lot();
-        lot.setId(lotDTO.getId());
-        lot.setTitle(lotDTO.getTitle());
-        lot.setDescription(lotDTO.getDescription());
-        lot.setStartPrice(lotDTO.getStartPrice());
-        lot.setBidPrice(lotDTO.getBidPrice());
-        lot.setStatus(lotDTO.getStatus());
-        return lot;
+    public static LotModel toLot(Lot lot) {
+        LotModel lotModel = new LotModel();
+        lotModel.setId(lot.getId());
+        lotModel.setTitle(lot.getTitle());
+        lotModel.setDescription(lot.getDescription());
+        lotModel.setStartPrice(lot.getStartPrice());
+        lotModel.setBidPrice(lot.getBidPrice());
+        lotModel.setStatus(lot.getStatus());
+        return lotModel;
     }
 
     public int getId() {
@@ -88,11 +89,11 @@ public class LotDTO {
         this.bidPrice = bidPrice;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 }
