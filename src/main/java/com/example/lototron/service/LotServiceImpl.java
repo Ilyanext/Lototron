@@ -2,8 +2,8 @@ package com.example.lototron.service;
 
 import com.example.lototron.ExeptionHandler.NotIdExeption;
 import com.example.lototron.ExeptionHandler.StatusExeption;
+import com.example.lototron.dto.CreateLot;
 import com.example.lototron.dto.FullLot;
-import com.example.lototron.dto.Lot;
 import com.example.lototron.model.BidModel;
 import com.example.lototron.model.LotModel;
 import com.example.lototron.model.Status;
@@ -14,8 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.awt.print.Pageable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,11 +29,11 @@ public class LotServiceImpl implements LotService {
     }
 
     @Override
-    public LotModel createLot(String title, String description, int startPrice, Status status, int bidPrice) {
-        Lot lot = new Lot(title, description, startPrice, status, bidPrice);
-        LotModel lotModel = Lot.toLot(lot);
+    public CreateLot createLot(String title, String description, int startPrice, Status status, int bidPrice) {
+        CreateLot createLot = new CreateLot(title, description, startPrice, status, bidPrice);
+        LotModel lotModel = CreateLot.toLot(createLot);
         lotRepository.save(lotModel);
-        return lotModel;
+        return createLot;
     }
 
 
@@ -55,12 +53,8 @@ public class LotServiceImpl implements LotService {
         });
         if (lotModel.getStatus().equals(Status.STARTED)) {
             BidModel bidModel = new BidModel(bidderName);
-            List<BidModel> bidModelList = new ArrayList<>(lotModel.getBidList());
-            bidModelList.add(bidModel);
-            lotModel.setBidList(bidModelList);
-
+            bidModel.setLotModel(lotModel);
             bidRepository.save(bidModel);
-            lotRepository.save(lotModel);
         } else throw new StatusExeption("Status not correct");
     }
 
@@ -74,30 +68,18 @@ public class LotServiceImpl implements LotService {
     }
 
     @Override
-    public List<Lot> getLotByStatusAndPage(Status status, int page) {
-        Pageable pageable = (Pageable) PageRequest.of(page, 10);
-        Page<LotModel> lotPage = lotRepository.findAll((org.springframework.data.domain.Pageable) pageable);
-        List<Lot> lots = lotPage.stream().map(Lot::fromLot).collect(Collectors.toList());
-        return lots.stream().filter(lot -> lot.getStatus().equals(status)).collect(Collectors.toList());
+    public List<LotModel> getLotByStatusAndPage(Status status, int page) { //?
+        PageRequest pageable =  PageRequest.of(page, 10);
+        Page<LotModel> lotPage = lotRepository.findAll(pageable);
+
+        return lotPage.stream().filter(lot -> lot.getStatus().equals(status)).collect(Collectors.toList());
     }
 
     @Override
     public FullLot getFullLot(int id) {
-        LotModel lotModel = lotRepository.findById(id).
-                orElseThrow(() -> {
-                    return new NotIdExeption("Lot not found!");
-                });
+        return lotRepository.findById(id).stream().map(FullLot::fromLot).findFirst().orElseThrow(() -> {
+            return new NotIdExeption("Lot not found!");});
 
-        return FullLot.fromLot(lotModel);
     }
 
-    @Override
-    public BidModel getInfoFirstBidder(int id) {
-        return bidRepository.getInfoFirstBidder(id);
-    }
-
-    @Override
-    public BidModel getNameByMaxCountBid(int id) {
-        return bidRepository.getNameByMaxCountBid(id);
-    }
-}
+ }

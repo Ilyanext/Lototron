@@ -24,7 +24,7 @@ public class BidModel {
         this.id = id;
         this.bidderName = bidderName;
         this.localDateTime = localDateTime;
-        this.lotModel = lotModel;
+        this.lotModel = this.lotModel;
     }
 
     public BidModel(int id, String bidderName, LocalDateTime localDateTime, LotModel lotModel) {

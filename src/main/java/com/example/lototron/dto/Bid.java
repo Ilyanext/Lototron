@@ -11,7 +11,7 @@ public class Bid {
     private LocalDateTime localDateTime;
     private Lot lot;
 
-    public Bid() {
+    public Bid(String bidderName, LotModel lotModel) {
     }
 
     public Bid(int id, String bidderName, LocalDateTime localDateTime) {
@@ -19,6 +19,9 @@ public class Bid {
         this.bidderName = bidderName;
         this.localDateTime = localDateTime;
         this.lot = lot;
+    }
+
+    public Bid() {
     }
 
     public static Bid fromBidder (BidModel bidModel){

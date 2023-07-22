@@ -3,16 +3,15 @@ package com.example.lototron.dto;
 import com.example.lototron.model.LotModel;
 import com.example.lototron.model.Status;
 
-public class Lot {
-    private int id;
+public class CreateLot {
+
     private String title;
     private String description;
     private int startPrice;
     private int bidPrice;
-
     private Status status;
-    public Lot(String title, String description, int startPrice, Status status, int bidPrice) {
 
+    public CreateLot(String title, String description, int startPrice, Status status, int bidPrice) {
         this.title = title;
         this.description = description;
         this.startPrice = startPrice;
@@ -20,37 +19,35 @@ public class Lot {
         this.status = status;
     }
 
-    public Lot() {
+    public CreateLot() {
     }
 
-    public static Lot fromLot (LotModel lotModel){
-        Lot lot = new Lot();
-        lot.setId(lotModel.getId());
-        lot.setTitle(lotModel.getTitle());
-        lot.setDescription(lotModel.getDescription());
-        lot.setStartPrice(lotModel.getStartPrice());
-        lot.setBidPrice(lotModel.getBidPrice());
-        lot.setStatus(lotModel.getStatus());
-        return lot;
+    public static CreateLot fromLot(LotModel lotModel) {
+        CreateLot createLot = new CreateLot();
+        createLot.setBidPrice(lotModel.getBidPrice());
+        createLot.setDescription(lotModel.getDescription());
+        createLot.setTitle(lotModel.getTitle());
+        createLot.setStartPrice(lotModel.getStartPrice());
+        createLot.setStatus(lotModel.getStatus());
+        return createLot;
     }
 
-    public static LotModel toLot(Lot lot) {
+    public static LotModel toLot(CreateLot createLot) {
         LotModel lotModel = new LotModel();
-        lotModel.setId(lot.getId());
-        lotModel.setTitle(lot.getTitle());
-        lotModel.setDescription(lot.getDescription());
-        lotModel.setStartPrice(lot.getStartPrice());
-        lotModel.setBidPrice(lot.getBidPrice());
-        lotModel.setStatus(lot.getStatus());
+        lotModel.setBidPrice(createLot.getBidPrice());
+        lotModel.setDescription(createLot.getDescription());
+        lotModel.setTitle(createLot.getTitle());
+        lotModel.setStartPrice(createLot.getStartPrice());
+        lotModel.setStatus(createLot.getStatus());
         return lotModel;
     }
 
-    public int getId() {
-        return id;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public String getTitle() {
@@ -83,13 +80,5 @@ public class Lot {
 
     public void setBidPrice(int bidPrice) {
         this.bidPrice = bidPrice;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
     }
 }
