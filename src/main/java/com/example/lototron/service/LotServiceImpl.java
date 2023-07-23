@@ -4,6 +4,7 @@ import com.example.lototron.ExeptionHandler.NotIdExeption;
 import com.example.lototron.ExeptionHandler.StatusExeption;
 import com.example.lototron.dto.CreateLot;
 import com.example.lototron.dto.FullLot;
+import com.example.lototron.dto.Lot;
 import com.example.lototron.model.BidModel;
 import com.example.lototron.model.LotModel;
 import com.example.lototron.model.Status;
@@ -68,18 +69,19 @@ public class LotServiceImpl implements LotService {
     }
 
     @Override
-    public List<LotModel> getLotByStatusAndPage(Status status, int page) { //?
-        PageRequest pageable =  PageRequest.of(page, 10);
+    public List<Lot> getLotByStatusAndPage(Status status, int page) {
+        PageRequest pageable = PageRequest.of(page, 10);
         Page<LotModel> lotPage = lotRepository.findAll(pageable);
-
-        return lotPage.stream().filter(lot -> lot.getStatus().equals(status)).collect(Collectors.toList());
+        List<Lot> lots = lotPage.stream().map(Lot::fromLot).collect(Collectors.toList());
+        return lots.stream().filter(lot -> lot.getStatus().equals(status)).collect(Collectors.toList());
     }
 
     @Override
     public FullLot getFullLot(int id) {
         return lotRepository.findById(id).stream().map(FullLot::fromLot).findFirst().orElseThrow(() -> {
-            return new NotIdExeption("Lot not found!");});
+            return new NotIdExeption("Lot not found!");
+        });
 
     }
 
- }
+}

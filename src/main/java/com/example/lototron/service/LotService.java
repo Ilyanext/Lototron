@@ -2,8 +2,7 @@ package com.example.lototron.service;
 
 import com.example.lototron.dto.CreateLot;
 import com.example.lototron.dto.FullLot;
-import com.example.lototron.model.BidModel;
-import com.example.lototron.model.LotModel;
+import com.example.lototron.dto.Lot;
 import com.example.lototron.model.Status;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +18,7 @@ public interface LotService {
 
     void stoppedLot(@PathVariable int id);
 
-    List<LotModel> getLotByStatusAndPage(Status status, int page);
+    List<Lot> getLotByStatusAndPage(Status status, int page);
 
     FullLot getFullLot(int id);
 

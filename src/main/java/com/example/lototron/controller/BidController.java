@@ -1,5 +1,6 @@
 package com.example.lototron.controller;
 
+import com.example.lototron.dto.Bid;
 import com.example.lototron.model.BidModel;
 import com.example.lototron.service.BidService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,13 +20,13 @@ private final  BidService bidService;
 
 
     @GetMapping("/{id}/first")
-    public BidModel getInfoFirstBedder(@PathVariable int id) {
+    public Bid getInfoFirstBedder(@PathVariable int id) {
         return bidService.getInfoFirstBidder(id);
     }
 
     //Bid
     @GetMapping("/{id}/frequent")
-    public BidModel getNameByMaxCountBid(@PathVariable int id) {
+    public Bid  getNameByMaxCountBid(@PathVariable int id) {
         return bidService.getNameByMaxCountBid(id);
     }
 }

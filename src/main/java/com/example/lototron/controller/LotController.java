@@ -49,7 +49,7 @@ public class LotController {
     }
 
     @GetMapping("/")
-    public List<LotModel> getAllInfoLotByStatusAndNumberPage(@RequestParam("status") Status status,
+    public List<Lot> getAllInfoLotByStatusAndNumberPage(@RequestParam("status") Status status,
                                                              @RequestParam("page") int page) {
         return lotService.getLotByStatusAndPage(status, page);
     }
