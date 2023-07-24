@@ -11,10 +11,17 @@ import com.example.lototron.model.Status;
 import com.example.lototron.repository.BidRepository;
 import com.example.lototron.repository.LotRepository;
 import jakarta.transaction.Transactional;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -78,10 +85,38 @@ public class LotServiceImpl implements LotService {
 
     @Override
     public FullLot getFullLot(int id) {
-        return lotRepository.findById(id).stream().map(FullLot::fromLot).findFirst().orElseThrow(() -> {
-            return new NotIdExeption("Lot not found!");
-        });
+        FullLot fullLot = FullLot.fromLot(lotRepository.getFullLot(id));
+        return fullLot;
+    }
 
+    @Override
+    public void csvFile(PrintWriter writer) {
+        List<Lot> lotCsv = lotRepository.findAll().stream()
+                .map(Lot::fromLot)
+                .toList();
+        try {
+//            Writer writer = Files.newBufferedWriter(Paths.get("LotInfo.csv"));
+            CSVPrinter printer = CSVFormat.DEFAULT
+                    .withHeader("Id", "Title", "Status", "LastBidderName", "CurrentPrice")
+                    .print(writer);
+
+            printer.printRecord(lotCsv);
+            printer.flush();
+            writer.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public String readTextFormatFile(String fileName) {
+        try {
+            return Files.lines(Paths.get(fileName), StandardCharsets.UTF_8)
+                    .collect(Collectors.joining());
+        } catch (IOException e) {
+           e.printStackTrace();
+        }
+        return null;
     }
 
 }

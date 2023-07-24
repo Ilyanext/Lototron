@@ -14,7 +14,7 @@ public class Bid {
     public Bid(String bidderName, LotModel lotModel) {
     }
 
-    public Bid(int id, String bidderName, LocalDateTime localDateTime) {
+    public Bid( String bidderName, LocalDateTime localDateTime) {
         this.id = id;
         this.bidderName = bidderName;
         this.localDateTime = localDateTime;

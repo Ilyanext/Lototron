@@ -13,7 +13,7 @@ public interface BidRepository extends JpaRepository<BidModel, Integer> {
     @Query(value = "select *from bid where lot_id = :id order by bidder_date_time limit 1", nativeQuery = true)
     BidModel getInfoFirstBidder(@Param("id") int id);
 
-    @Query(value = "select id,bidder_name, bidder_date_time from bid where lot_id=:id " +
+    @Query(value = "select bidder_name, MAX(bidder_date_time) from bid where lot_id=:id " +
             "group by bidder_name  order by count(*) desc limit 1",nativeQuery = true)
     BidModel getNameByMaxCountBid(@Param("id") int id);
 }

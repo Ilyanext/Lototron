@@ -92,4 +92,16 @@ public class Lot {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "Lot{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", startPrice=" + startPrice +
+                ", bidPrice=" + bidPrice +
+                ", status=" + status +
+                '}';
+    }
 }

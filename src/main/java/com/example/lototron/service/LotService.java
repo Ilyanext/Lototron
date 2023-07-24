@@ -7,6 +7,7 @@ import com.example.lototron.model.Status;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.PrintWriter;
 import java.util.List;
 
 public interface LotService {
@@ -22,4 +23,7 @@ public interface LotService {
 
     FullLot getFullLot(int id);
 
+    void csvFile(PrintWriter writer);
+
+    String readTextFormatFile (String fileName);
 }
