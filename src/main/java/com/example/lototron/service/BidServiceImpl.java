@@ -1,8 +1,8 @@
 package com.example.lototron.service;
 
 import com.example.lototron.dto.Bid;
-import com.example.lototron.model.BidModel;
-import com.example.lototron.model.LotModel;
+import com.example.lototron.dto.BidProjectDTO;
+import com.example.lototron.projection.BidView;
 import com.example.lototron.repository.BidRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -23,8 +23,7 @@ public class BidServiceImpl implements BidService {
     }
 
     @Override
-    public Bid getNameByMaxCountBid(int id) {
-        Bid bid = Bid.fromBidder(bidRepository.getNameByMaxCountBid(id));
-        return bid;
+    public BidView getNameByMaxCountBid(int id) {
+       return bidRepository.getNameByMaxCountBid(id);
     }
 }

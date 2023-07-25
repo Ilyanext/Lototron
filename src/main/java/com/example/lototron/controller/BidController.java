@@ -1,7 +1,10 @@
 package com.example.lototron.controller;
 
 import com.example.lototron.dto.Bid;
+import com.example.lototron.dto.BidProjectDTO;
 import com.example.lototron.model.BidModel;
+import com.example.lototron.projection.BidProjection;
+import com.example.lototron.projection.BidView;
 import com.example.lototron.service.BidService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +29,7 @@ private final  BidService bidService;
 
     //Bid
     @GetMapping("/{id}/frequent")
-    public Bid  getNameByMaxCountBid(@PathVariable int id) {
+    public BidView getNameByMaxCountBid(@PathVariable int id) {
         return bidService.getNameByMaxCountBid(id);
     }
 }

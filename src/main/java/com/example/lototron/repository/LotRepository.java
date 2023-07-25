@@ -14,8 +14,10 @@ import org.springframework.stereotype.Repository;
 public interface LotRepository extends JpaRepository<LotModel, Integer> {
     @Query(value = "select l.lot_id as lot_id, l.title, l.bid_price as bid_price, l.start_price as start_price, l.description, l.status, \n " +
             "(start_price+bid_price*(select count(lot_id) from bid b where b.lot_id=lot_id)) as current_price, \n" +
-            "b2.bidder_name, b2.bidder_date_time from lot l inner join bid b2 on l.lot_id = 2 and b2.bidder_date_time = (select max(b3.bidder_date_time) from bid b3 where b3.lot_id = :id)", nativeQuery = true)
+            "b2.bidder_name, b2.bidder_date_time from lot l inner join bid b2 on l.lot_id = :id and b2.bidder_date_time = (select max(b3.bidder_date_time) from bid b3 where b3.lot_id = :id)", nativeQuery = true)
     LotModel getFullLot(@Param("id") int id);
-
+    @Query(value = " select l.lot_id as lot_id, l.title, l.description, l.status,(start_price+bid_price*(select count(lot_id) from bid b where b.lot_id=lot_id)) " +
+            "as current_price, (select bidder_name from bid order by id desc limit 1) as lastBidder from lot l;", nativeQuery = true)
+    LotModel getFilterLotFile();
     Page<LotModel> findAll(Pageable pageable);
 }

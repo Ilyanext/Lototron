@@ -91,9 +91,7 @@ public class LotServiceImpl implements LotService {
 
     @Override
     public void csvFile(PrintWriter writer) {
-        List<Lot> lotCsv = lotRepository.findAll().stream()
-                .map(Lot::fromLot)
-                .toList();
+        Lot lotCsv = Lot.fromLot(lotRepository.getFilterLotFile());
         try {
 //            Writer writer = Files.newBufferedWriter(Paths.get("LotInfo.csv"));
             CSVPrinter printer = CSVFormat.DEFAULT
