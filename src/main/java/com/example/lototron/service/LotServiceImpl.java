@@ -8,6 +8,7 @@ import com.example.lototron.dto.Lot;
 import com.example.lototron.model.BidModel;
 import com.example.lototron.model.LotModel;
 import com.example.lototron.model.Status;
+import com.example.lototron.projection.LotViewExport;
 import com.example.lototron.repository.BidRepository;
 import com.example.lototron.repository.LotRepository;
 import jakarta.transaction.Transactional;
@@ -91,14 +92,15 @@ public class LotServiceImpl implements LotService {
 
     @Override
     public void csvFile(PrintWriter writer) {
-        Lot lotCsv = Lot.fromLot(lotRepository.getFilterLotFile());
+        List<LotViewExport> lotViewExport = lotRepository.getFilterLotFile();
+
         try {
-//            Writer writer = Files.newBufferedWriter(Paths.get("LotInfo.csv"));
+
             CSVPrinter printer = CSVFormat.DEFAULT
-                    .withHeader("Id", "Title", "Status", "LastBidderName", "CurrentPrice")
+                    .withHeader("Id", "Title", "Description", "Status", "LastBidderName", "CurrentPrice")
                     .print(writer);
 
-            printer.printRecord(lotCsv);
+            printer.printRecord(lotViewExport);
             printer.flush();
             writer.close();
         } catch (IOException ex) {

@@ -1,7 +1,6 @@
 package com.example.lototron.service;
 
 import com.example.lototron.dto.Bid;
-import com.example.lototron.dto.BidProjectDTO;
 import com.example.lototron.projection.BidView;
 import com.example.lototron.repository.BidRepository;
 import jakarta.transaction.Transactional;

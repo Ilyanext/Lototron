@@ -104,5 +104,16 @@ public class LotModel {
         this.bidModelList = bidModelList;
     }
 
-
+    @Override
+    public String toString() {
+        return "LotModel{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", startPrice=" + startPrice +
+                ", bidPrice=" + bidPrice +
+                ", status=" + status +
+                ", bidModelList=" + bidModelList +
+                '}';
+    }
 }

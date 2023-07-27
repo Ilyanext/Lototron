@@ -2,6 +2,7 @@ package com.example.lototron.repository;
 
 import com.example.lototron.dto.FullLot;
 import com.example.lototron.model.LotModel;
+import com.example.lototron.projection.LotViewExport;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,6 +10,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface LotRepository extends JpaRepository<LotModel, Integer> {
@@ -18,6 +21,6 @@ public interface LotRepository extends JpaRepository<LotModel, Integer> {
     LotModel getFullLot(@Param("id") int id);
     @Query(value = " select l.lot_id as lot_id, l.title, l.description, l.status,(start_price+bid_price*(select count(lot_id) from bid b where b.lot_id=lot_id)) " +
             "as current_price, (select bidder_name from bid order by id desc limit 1) as lastBidder from lot l;", nativeQuery = true)
-    LotModel getFilterLotFile();
+    List<LotViewExport> getFilterLotFile();
     Page<LotModel> findAll(Pageable pageable);
 }

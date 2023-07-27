@@ -82,4 +82,14 @@ public class BidModel {
     public int hashCode() {
         return Objects.hash(id, bidderName, localDateTime, lotModel);
     }
+
+    @Override
+    public String toString() {
+        return "BidModel{" +
+                "id=" + id +
+                ", bidderName='" + bidderName + '\'' +
+                ", localDateTime=" + localDateTime +
+                ", lotModel=" + lotModel +
+                '}';
+    }
 }

@@ -2,7 +2,6 @@ package com.example.lototron.dto;
 
 import com.example.lototron.model.BidModel;
 import com.example.lototron.model.LotModel;
-import com.example.lototron.projection.BidProjection;
 
 import java.time.LocalDateTime;
 
