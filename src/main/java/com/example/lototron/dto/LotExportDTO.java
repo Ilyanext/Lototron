@@ -16,7 +16,7 @@ public class LotExportDTO {
 
 
     public LotExportDTO(int lot_id, String title, String description, String lastBedder, int currentPrice, Status status) {
-        Lot_id = lot_id;
+        this.Lot_id = lot_id;
         this.title = title;
         this.description = description;
         this.lastBedder = lastBedder;
@@ -29,6 +29,7 @@ public class LotExportDTO {
 
     public static LotExportDTO fromLot(LotViewExport lotModel) {
         LotExportDTO lot = new LotExportDTO();
+        lot.setLot_id(lotModel.getLot_id());
         lot.setCurrentPrice(lotModel.getCurrent_price());
         lot.setTitle(lotModel.getTitle());
         lot.setDescription(lotModel.getDescription());

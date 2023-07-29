@@ -3,7 +3,7 @@ package com.example.lototron.projection;
 import com.example.lototron.model.Status;
 
 public interface LotViewExport {
-    int getLot_id();
+    int getLot_id() ;
 
     String getTitle();
 
