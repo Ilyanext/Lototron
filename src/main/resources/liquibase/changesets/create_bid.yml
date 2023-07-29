@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1 # идентификатор набора изменений
+      id: 2 # идентификатор набора изменений
       author: developer # имя разработчика, который добавил набор изменений
       changes: # список изменений в этом наборе
         - createTable: # команда liquibase — создает таблицу
@@ -13,17 +13,17 @@ databaseChangeLog:
                   constraints: # ограничения колонки
                     primaryKey: true
               - column:
-                  name: bidderName
+                  name: bidder_name
                   type: varchar (255)
                   constraints:
                     nullable: false
               - column:
                   name: bidder_date_time
-                  type: varchar (255)
+                  type: datetime
                   constraints:
                     nullable: false
               - column:
-                  name: lot
-                  type: varchar (255)
+                  name: lot_id
+                  type: int
                   constraints:
                     foreignKeyName: lot_id

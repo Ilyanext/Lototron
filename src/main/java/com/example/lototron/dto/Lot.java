@@ -3,6 +3,8 @@ package com.example.lototron.dto;
 import com.example.lototron.model.LotModel;
 import com.example.lototron.model.Status;
 
+import java.util.Objects;
+
 public class Lot {
     private int id;
     private String title;
@@ -91,5 +93,30 @@ public class Lot {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lot lot = (Lot) o;
+        return id == lot.id && startPrice == lot.startPrice && bidPrice == lot.bidPrice && title.equals(lot.title) && description.equals(lot.description) && status == lot.status;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, startPrice, bidPrice, status);
+    }
+
+    @Override
+    public String toString() {
+        return "Lot{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", startPrice=" + startPrice +
+                ", bidPrice=" + bidPrice +
+                ", status=" + status +
+                '}';
     }
 }

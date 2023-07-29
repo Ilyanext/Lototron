@@ -7,8 +7,12 @@ import com.example.lototron.dto.Lot;
 import com.example.lototron.model.LotModel;
 import com.example.lototron.model.Status;
 import com.example.lototron.service.LotService;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 
@@ -49,14 +53,17 @@ public class LotController {
     }
 
     @GetMapping("/")
-    public List<LotModel> getAllInfoLotByStatusAndNumberPage(@RequestParam("status") Status status,
+    public List<Lot> getAllInfoLotByStatusAndNumberPage(@RequestParam("status") Status status,
                                                              @RequestParam("page") int page) {
         return lotService.getLotByStatusAndPage(status, page);
     }
 
     //Нужно возвращать файл
     @GetMapping("/export")
-    public int getExportAllLotInFile() {
-        return 333;
+    public void getExportAllLotInFile(HttpServletResponse response) throws IOException {
+        response.addHeader(HttpHeaders.CONTENT_TYPE, "application/csv");
+        response.addHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + "LotInfo.csv" + "\"");
+        lotService.csvFile(response.getWriter());
+
     }
 }

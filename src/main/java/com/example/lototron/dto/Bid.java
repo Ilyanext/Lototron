@@ -6,7 +6,7 @@ import com.example.lototron.model.LotModel;
 import java.time.LocalDateTime;
 
 public class Bid {
-    private int id;
+
     private String bidderName;
     private LocalDateTime localDateTime;
     private Lot lot;
@@ -14,8 +14,8 @@ public class Bid {
     public Bid(String bidderName, LotModel lotModel) {
     }
 
-    public Bid(int id, String bidderName, LocalDateTime localDateTime) {
-        this.id = id;
+    public Bid( String bidderName, LocalDateTime localDateTime) {
+
         this.bidderName = bidderName;
         this.localDateTime = localDateTime;
         this.lot = lot;
@@ -26,7 +26,7 @@ public class Bid {
 
     public static Bid fromBidder (BidModel bidModel){
         Bid bid = new Bid();
-        bid.setId(bidModel.getId());
+
         bid.setBidderName(bidModel.getBidderName());
         bid.setLocalDateTime(bidModel.getLocalDateTime());
         var lot = bidModel.getLotModel();
@@ -37,7 +37,7 @@ public class Bid {
 
     public static BidModel toBid(Bid bid) {
         BidModel bidModel = new BidModel();
-        bidModel.setId(bid.getId());
+
         bidModel.setBidderName(bid.getBidderName());
         bidModel.setLocalDateTime(bid.getLocalDateTime());
 
@@ -60,13 +60,7 @@ public class Bid {
         this.lot = lot;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getBidderName() {
         return bidderName;
@@ -87,7 +81,7 @@ public class Bid {
     @Override
     public String toString() {
         return "BidderDTO{" +
-                "id=" + id +
+
                 ", bidderName='" + bidderName + '\'' +
                 ", localDateTime=" + localDateTime +
                 '}';
