@@ -5,6 +5,7 @@ import com.example.lototron.ExeptionHandler.StatusExeption;
 import com.example.lototron.dto.CreateLot;
 import com.example.lototron.dto.FullLot;
 import com.example.lototron.dto.Lot;
+import com.example.lototron.dto.LotExportDTO;
 import com.example.lototron.model.BidModel;
 import com.example.lototron.model.LotModel;
 import com.example.lototron.model.Status;
@@ -92,7 +93,9 @@ public class LotServiceImpl implements LotService {
 
     @Override
     public void csvFile(PrintWriter writer) {
-        List<LotViewExport> lotViewExport = lotRepository.getFilterLotFile();
+       List<LotExportDTO> lotExportDTOS =  lotRepository.getFilterLotFile().stream()
+               .map(lotViewExport -> LotExportDTO.fromLot(lotViewExport))
+               .collect(Collectors.toList());
 
         try {
 
@@ -100,7 +103,7 @@ public class LotServiceImpl implements LotService {
                     .withHeader("Id", "Title", "Description", "Status", "LastBidderName", "CurrentPrice")
                     .print(writer);
 
-            printer.printRecord(lotViewExport);
+            printer.printRecord(lotExportDTOS);
             printer.flush();
             writer.close();
         } catch (IOException ex) {

@@ -105,6 +105,19 @@ public class LotModel {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LotModel lotModel = (LotModel) o;
+        return id == lotModel.id && startPrice == lotModel.startPrice && bidPrice == lotModel.bidPrice && title.equals(lotModel.title) && description.equals(lotModel.description) && status == lotModel.status && bidModelList.equals(lotModel.bidModelList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, startPrice, bidPrice, status, bidModelList);
+    }
+
+    @Override
     public String toString() {
         return "LotModel{" +
                 "id=" + id +

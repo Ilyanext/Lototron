@@ -1,6 +1,6 @@
 package com.example.lototron.repository;
 
-import com.example.lototron.dto.FullLot;
+import com.example.lototron.dto.LotExportDTO;
 import com.example.lototron.model.LotModel;
 import com.example.lototron.projection.LotViewExport;
 import org.springframework.data.domain.Page;
@@ -20,7 +20,7 @@ public interface LotRepository extends JpaRepository<LotModel, Integer> {
             "b2.bidder_name, b2.bidder_date_time from lot l inner join bid b2 on l.lot_id = :id and b2.bidder_date_time = (select max(b3.bidder_date_time) from bid b3 where b3.lot_id = :id)", nativeQuery = true)
     LotModel getFullLot(@Param("id") int id);
     @Query(value = " select l.lot_id as lot_id, l.title, l.description, l.status,(start_price+bid_price*(select count(lot_id) from bid b where b.lot_id=lot_id)) " +
-            "as current_price, (select bidder_name from bid order by id desc limit 1) as lastBidder from lot l;", nativeQuery = true)
+            "as current_price, (select bidder_name from bid order by id desc limit 1) as lastBidder from lot l", nativeQuery = true)
     List<LotViewExport> getFilterLotFile();
     Page<LotModel> findAll(Pageable pageable);
 }

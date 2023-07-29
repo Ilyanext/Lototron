@@ -2,57 +2,57 @@ package com.example.lototron.dto;
 
 import com.example.lototron.model.LotModel;
 import com.example.lototron.model.Status;
+import com.example.lototron.projection.LotViewExport;
 
 import java.util.Objects;
 
-public class Lot {
-    private int id;
+public class LotExportDTO {
+    private int Lot_id;
     private String title;
     private String description;
-    private int startPrice;
-    private int bidPrice;
-
+    private String lastBedder;
+    private int currentPrice;
     private Status status;
-    public Lot(String title, String description, int startPrice, Status status, int bidPrice) {
 
+
+    public LotExportDTO(int lot_id, String title, String description, String lastBedder, int currentPrice, Status status) {
+        Lot_id = lot_id;
         this.title = title;
         this.description = description;
-        this.startPrice = startPrice;
-        this.bidPrice = bidPrice;
+        this.lastBedder = lastBedder;
+        this.currentPrice = currentPrice;
         this.status = status;
     }
 
-    public Lot() {
+    public LotExportDTO() {
     }
 
-    public static Lot fromLot (LotModel lotModel){
-        Lot lot = new Lot();
-        lot.setId(lotModel.getId());
+    public static LotExportDTO fromLot(LotViewExport lotModel) {
+        LotExportDTO lot = new LotExportDTO();
+        lot.setCurrentPrice(lotModel.getCurrent_price());
         lot.setTitle(lotModel.getTitle());
         lot.setDescription(lotModel.getDescription());
-        lot.setStartPrice(lotModel.getStartPrice());
-        lot.setBidPrice(lotModel.getBidPrice());
+        lot.setLastBedder(lotModel.getLastBidder());
         lot.setStatus(lotModel.getStatus());
         return lot;
     }
 
-    public static LotModel toLot(Lot lot) {
+    public static LotModel toLot(LotExportDTO lot) {
         LotModel lotModel = new LotModel();
-        lotModel.setId(lot.getId());
+
         lotModel.setTitle(lot.getTitle());
         lotModel.setDescription(lot.getDescription());
-        lotModel.setStartPrice(lot.getStartPrice());
-        lotModel.setBidPrice(lot.getBidPrice());
+
         lotModel.setStatus(lot.getStatus());
         return lotModel;
     }
 
-    public int getId() {
-        return id;
+    public int getLot_id() {
+        return Lot_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setLot_id(int lot_id) {
+        Lot_id = lot_id;
     }
 
     public String getTitle() {
@@ -71,20 +71,20 @@ public class Lot {
         this.description = description;
     }
 
-    public int getStartPrice() {
-        return startPrice;
+    public String getLastBedder() {
+        return lastBedder;
     }
 
-    public void setStartPrice(int startPrice) {
-        this.startPrice = startPrice;
+    public void setLastBedder(String lastBedder) {
+        this.lastBedder = lastBedder;
     }
 
-    public int getBidPrice() {
-        return bidPrice;
+    public int getCurrentPrice() {
+        return currentPrice;
     }
 
-    public void setBidPrice(int bidPrice) {
-        this.bidPrice = bidPrice;
+    public void setCurrentPrice(int currentPrice) {
+        this.currentPrice = currentPrice;
     }
 
     public Status getStatus() {
@@ -99,23 +99,23 @@ public class Lot {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Lot lot = (Lot) o;
-        return id == lot.id && startPrice == lot.startPrice && bidPrice == lot.bidPrice && title.equals(lot.title) && description.equals(lot.description) && status == lot.status;
+        LotExportDTO that = (LotExportDTO) o;
+        return Lot_id == that.Lot_id && currentPrice == that.currentPrice && title.equals(that.title) && description.equals(that.description) && lastBedder.equals(that.lastBedder) && status == that.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, startPrice, bidPrice, status);
+        return Objects.hash(Lot_id, title, description, lastBedder, currentPrice, status);
     }
 
     @Override
     public String toString() {
-        return "Lot{" +
-                "id=" + id +
+        return "LotExportDTO{" +
+                "Lot_id=" + Lot_id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", startPrice=" + startPrice +
-                ", bidPrice=" + bidPrice +
+                ", lastBedder='" + lastBedder + '\'' +
+                ", currentPrice=" + currentPrice +
                 ", status=" + status +
                 '}';
     }
